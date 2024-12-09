@@ -8,38 +8,33 @@ public class Ex1Main {
         boolean running = true;
 
         while (running) {
-            System.out.println("Enter a string as number#1 (or \"quit\" to end the program):");
+            System.out.println("Enter a number in the format '<number>b<base>' or 'quit' to exit:");
             String num1 = scanner.nextLine();
             if (num1.equalsIgnoreCase("quit")) {
-                running = false;
                 System.out.println("Exiting program...");
-                continue;
+                break;
             }
-
             if (!Ex1.isNumber(num1)) {
-                System.out.println("ERR: num1 is in the wrong format! (" + num1 + ")");
+                System.out.println("Invalid input! Please enter a valid formatted number.");
                 continue;
-            } else {
-                System.out.println("num1 is valid: true");
             }
 
-            boolean validNum2 = false;
-            String num2 = "";
-            while (!validNum2 && running) {
-                System.out.println("Enter a string as number#2 (or \"quit\" to end the program):");
-                num2 = scanner.nextLine();
-                if (num2.equalsIgnoreCase("quit")) {
-                    running = false;
-                    System.out.println("Exiting program...");
-                } else if (!Ex1.isNumber(num2)) {
-                    System.out.println("ERR: num2 is in the wrong format! (" + num2 + ")");
-                } else {
-                    validNum2 = true;
-                    System.out.println("num2 is valid: true");
-                }
+            int decimalValue1 = Ex1.number2Int(num1);
+            System.out.println("The decimal value of " + num1 + " is: " + decimalValue1);
+
+            System.out.println("Enter a string as number#2 (or 'quit' to exit):");
+            String num2 = scanner.nextLine();
+            if (num2.equalsIgnoreCase("quit")) {
+                System.out.println("Exiting program...");
+                break;
+            }
+            if (!Ex1.isNumber(num2)) {
+                System.out.println("Invalid input! Please enter a valid formatted number.");
+                continue;
             }
 
-            if (!running) continue;
+            int decimalValue2 = Ex1.number2Int(num2);
+            System.out.println("The decimal value of " + num2 + " is: " + decimalValue2);
 
             System.out.println("Enter a base for output: (a number [2,16]):");
             int base;
@@ -51,33 +46,17 @@ public class Ex1Main {
                 continue;
             }
 
-            processNumbers(num1, num2, base);
+            String sum = Ex1.int2Number(decimalValue1 + decimalValue2, base) + "b" + base;
+            String product = Ex1.int2Number(decimalValue1 * decimalValue2, base) + "b" + base;
+
+            System.out.println(num1 + " + " + num2 + " = " + sum);
+            System.out.println(num1 + " * " + num2 + " = " + product);
+
+            String[] numbers = {num1, num2, sum, product};
+            int maxIdx = Ex1.maxIndex(numbers);
+            System.out.println("Max number over [" + String.join(",", numbers) + "] is: " + numbers[maxIdx]);
         }
 
         scanner.close();
-    }
-
-    /**
-     * Processes the two input numbers and prints their sum, product, and the maximum value.
-     * @param num1 The first number string.
-     * @param num2 The second number string.
-     * @param base The base for the output.
-     */
-    private static void processNumbers(String num1, String num2, int base) {
-        int value1 = Ex1.number2Int(num1);
-        int value2 = Ex1.number2Int(num2);
-
-        System.out.println("num1= " + num1 + " is number: true , value: " + value1);
-        System.out.println("num2= " + num2 + " is number: true , value: " + value2);
-
-        String sumStr = Ex1.int2Number(value1 + value2, base) + "b" + base;
-        String productStr = Ex1.int2Number(value1 * value2, base) + "b" + base;
-
-        System.out.println(num1 + " + " + num2 + " = " + sumStr);
-        System.out.println(num1 + " * " + num2 + " = " + productStr);
-
-        String[] numbers = {num1, num2, sumStr, productStr};
-        int maxIdx = Ex1.maxIndex(numbers);
-        System.out.println("Max number over " + String.join(",", numbers) + " is: " + numbers[maxIdx]);
     }
 }

@@ -1,74 +1,22 @@
-## **Features**
-1. **Number Validation (`isNumber`)**
-   - Validates if a given string follows the correct format:
-     - `<number><b><base>` where `<number>` consists of digits (`0-9`) and uppercase letters (`A-F`).
-     - `b` is used as a separator and must be lowercase.
-     - `<base>` is a valid integer between 2 and 16.
-   - Rejects invalid characters (e.g., special characters, spaces, and Hebrew letters).
+# Ex1 - Number Formatting Converter
 
-2. **Conversion Functions**
-   - `number2Int(String num)`: Converts a valid number in the custom format to its decimal (base 10) equivalent.
-   - `int2Number(int num, int base)`: Converts a decimal number to a string representation in the specified base.
+## Author
+- **ID**: 208748368
 
-3. **Equality Check (`equals`)**
-   - Compares two numbers in the custom format to determine if they are equivalent.
+## Overview
+This project implements a number formatting converter and calculator for bases 2 to 16, using the `<number>b<base>` format. It supports base conversions, numerical operations, and validation for formatted numbers.
 
-4. **Maximum Finder (`maxIndex`)**
-   - Finds the index of the largest number in an array of numbers in the custom format.
+## Functions
+- **`number2Int`**: Converts formatted strings to decimal. Returns `-1` for invalid inputs.
+- **`isNumber`**: Validates the `<number>b<base>` format for bases 2 to 16.
+- **`int2Number`**: Converts decimal numbers to a specified base. Returns an empty string if the input is invalid.
+- **`equals`**: Placeholder function (raises an exception as per assignment instructions).
+- **`maxIndex`**: Finds the index of the largest number in an array, ignoring invalid numbers.
 
-5. **Main Program**
-   - Interactive command-line program to:
-     - Validate numbers.
-     - Perform addition and multiplication.
-     - Display the maximum value among given numbers.
+### Internal Functions
+- **`parseBase`**: A private function used internally to convert base representations (e.g., `A` to `10`, `G` to `16`). This function is not intended for direct use.
 
-6. **JUnit Tests**
-   - Comprehensive test suite to ensure correctness of the implementation.
+## Testing
+Comprehensive unit tests are provided in `Ex1Test.java`, covering valid inputs, invalid inputs, and edge cases for all functions.
 
 ---
-
-## **Input Format**
-A valid number string must follow this structure:
-`<number><b><base>`
-- `<number>`: A combination of digits (`0-9`) and uppercase letters (`A-F`).
-- `b`: A lowercase `b` separating the number and base.
-- `<base>`: An integer between 2 and 16.
-
-**Examples of valid inputs:**
-- `101b2` → Binary (base 2)
-- `A2b16` → Hexadecimal (base 16)
-- `123b10` → Decimal (base 10)
-
-**Examples of invalid inputs:**
-- `123b1` → Base less than 2.
-- `123b17` → Base greater than 16.
-- `10 2b10` → Space in the number.
-- `101נb10` → Hebrew characters.
-- `123B10` → Uppercase `B` as separator.
-
----
-
-## **Usage**
-
-### **Run the Program**
-1. Compile and run `Ex1Main.java` using your Java IDE (e.g., IntelliJ IDEA).
-2. Follow the interactive prompts:
-   - Enter a number in the custom format.
-   - Enter a base for output.
-   - View the result of addition, multiplication, and the maximum number.
-
-### **Run Tests**
-1. Compile and run `Ex1Test.java` to verify the correctness of the implementation.
-2. The test suite covers:
-   - Valid and invalid number formats.
-   - Conversion functions.
-   - Logical correctness of addition, multiplication, and maximum finding.
-
----
-באגים פתוחים:
-1. הזנת אותיות גדולות באנגלית שכן מתחלקות בבסיסים
-2. הזנת מילים בעברית תוך כדי שימוש במחרוזת הראשונה , לא מציג באג
-3. סוגריים בתצואה הסופית של המספרים המקסימליים
-עדכון קובת הרידמי בהתאם
-EFbG , מופיע כבאג, צריך תבדוק
-

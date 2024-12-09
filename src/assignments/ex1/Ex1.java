@@ -12,7 +12,6 @@ public class Ex1 {
         for (char c : parts[0].toCharArray()) result = result * base + Character.digit(c, base);
         return result;
     }
-
     public static boolean isNumber(String a) {
         if (a == null || !a.contains("b")) return false;
         String[] parts = a.split("b");
@@ -26,7 +25,6 @@ public class Ex1 {
         }
         return true;
     }
-
     public static String int2Number(int num, int base) {
         if (num < 0 || base < 2 || base > 16) return "";
         return Integer.toString(num, base).toUpperCase();
@@ -49,7 +47,6 @@ public class Ex1 {
         }
         return maxIndex;
     }
-
     private static int parseBase(String baseStr) {
         if (baseStr.matches("[A-G]")) {
             return 10 + (baseStr.charAt(0) - 'A');

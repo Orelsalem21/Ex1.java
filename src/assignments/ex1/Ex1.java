@@ -18,60 +18,47 @@ public class Ex1 {
 
         if (!isNumber(num)) return -1;
 
-        if (!num.contains("b")) { 
-            int result = 0;
-            for (char c : num.toCharArray()) {
-                result = result * 10 + (c - '0');
+        try {
+            if (!num.contains("b")) {
+                return Integer.parseInt(num.trim());
             }
-            return result;
-        }
 
-        String[] parts = num.split("b");
-        int base = parseBase(parts[1]);
-        int result = 0;
-        for (char c : parts[0].toCharArray()) {
-            result = result * base + Character.digit(c, base);
+            String[] parts = num.split("b");
+            if (parts.length != 2) return -1;
+
+            int base = parseBase(parts[1].trim());
+            if (base < 2 || base > 16) return -1;
+
+            return Integer.parseInt(parts[0], base);
+        } catch (NumberFormatException e) {
+            return -1;
         }
-        return result;
     }
 
     /**
-     * This static function checks if the given String (a) is in a valid "number" format.
+     * Checks if the given String (a) is in a valid "number" format.
      * @param a a String representing a number
      * @return true if the given String is in a valid number format
      */
     public static boolean isNumber(String a) {
         if (a == null || a.isEmpty()) return false;
 
-        int start = 0, end = a.length() - 1;
-        while (start <= end && a.charAt(start) == ' ') start++;
-        while (end >= start && a.charAt(end) == ' ') end--;
-        if (start > end) return false;
-
-        String trimmed = a.substring(start, end + 1);
-
-        if (!trimmed.contains("b")) { 
-            for (char c : trimmed.toCharArray()) {
-                if (!Character.isDigit(c)) return false;
-            }
-            return true;
+        a = a.trim();
+        if (!a.contains("b")) {
+            return a.chars().allMatch(Character::isDigit);
         }
 
-        String[] parts = trimmed.split("b");
+        String[] parts = a.split("b");
         if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) return false;
 
-        int base = parseBase(parts[1]);
+        int base = parseBase(parts[1].trim());
         if (base < 2 || base > 16) return false;
 
-        for (char c : parts[0].toCharArray()) {
-            if (Character.digit(c, base) == -1) return false;
-        }
-        return true;
+        return parts[0].chars().allMatch(c -> Character.digit(c, base) != -1);
     }
 
     /**
-     * Calculate the number representation (in basis base)
-     * of the given natural number (represented as an integer).
+     * Converts a given integer to a number in a specified base.
      * @param num the natural number (including 0)
      * @param base the basis [2,16]
      * @return a String representing a number in the given base, or an empty String if input is invalid
@@ -82,11 +69,13 @@ public class Ex1 {
     }
 
     /**
-     * This static function searches for the array index with the largest number (in value).
+     * Finds the index of the largest number in the array.
      * @param arr an array of numbers
-     * @return the index in the array with the largest number (in value), or -1 if invalid
+     * @return the index of the largest number, or -1 if invalid
      */
     public static int maxIndex(String[] arr) {
+        if (arr == null || arr.length == 0) return -1;
+
         int maxValue = Integer.MIN_VALUE;
         int maxIndex = -1;
         for (int i = 0; i < arr.length; i++) {
@@ -99,8 +88,13 @@ public class Ex1 {
         return maxIndex;
     }
 
+    /**
+     * Parses a base string into an integer.
+     * @param baseStr the base as a String
+     * @return the parsed base or -1 if invalid
+     */
     private static int parseBase(String baseStr) {
-        if (baseStr.matches("[A-G]")) { 
+        if (baseStr.matches("[A-G]")) {
             return 10 + (baseStr.charAt(0) - 'A');
         } else {
             try {

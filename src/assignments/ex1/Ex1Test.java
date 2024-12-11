@@ -124,4 +124,13 @@ class Ex1Test {
         assertEquals(-1, Ex1.number2Int(null)); // Null input
         assertEquals(-1, Ex1.number2Int("")); // Empty string
     }
+
+    /**
+     * Tests output formatting consistency.
+     */
+    @Test
+    void testOutputFormatting() {
+        int base = 16;
+        assertEquals("EFb16", Ex1.int2Number(239, base) + "b" + base);
+    }
 }

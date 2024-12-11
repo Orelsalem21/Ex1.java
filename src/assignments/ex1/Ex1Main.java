@@ -16,7 +16,13 @@ public class Ex1Main {
                 System.out.println("Exiting program...");
                 break;
             }
-
+            // Validate the first number
+            if (!Ex1.isNumber(input)) {
+                System.out.println("num1= " + input + " is number: false");
+                continue;
+            }
+            int num1Value = Ex1.number2Int(input);
+            System.out.println("num1= " + input + " is number: true , value: " + num1Value);
             // Check if the input contains all three required parts
             if (input.split("\\s+").length >= 3) {
                 handleSingleLineInput(input);
@@ -34,9 +40,6 @@ public class Ex1Main {
                     System.out.println("num1= " + input + " is number: false");
                     continue;
                 }
-                int num1Value = Ex1.number2Int(input);
-                System.out.println("num1= " + input + " is number: true , value: " + num1Value);
-
                 // Validate the second number
                 if (!Ex1.isNumber(num2Input)) {
                     System.out.println("num2= " + num2Input + " is number: false");

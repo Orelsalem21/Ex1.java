@@ -14,9 +14,9 @@ public class Ex1 {
      * @return the decimal representation of the number
      */
     public static int number2Int(String num) {
-        if (num == null || num.isEmpty()) return -1;
-
-        if (!isNumber(num)) return -1;
+        if (num == null || num.isEmpty() || !isNumber(num)) {
+            return -1;
+        }
 
         try {
             if (!num.contains("b")) {
@@ -24,10 +24,14 @@ public class Ex1 {
             }
 
             String[] parts = num.split("b");
-            if (parts.length != 2) return -1;
+            if (parts.length != 2) {
+                return -1;
+            }
 
             int base = parseBase(parts[1].trim());
-            if (base < 2 || base > 16) return -1;
+            if (base < 2 || base > 16) {
+                return -1;
+            }
 
             return Integer.parseInt(parts[0], base);
         } catch (NumberFormatException e) {
@@ -41,7 +45,9 @@ public class Ex1 {
      * @return true if the given String is in a valid number format
      */
     public static boolean isNumber(String a) {
-        if (a == null || a.isEmpty()) return false;
+        if (a == null || a.isEmpty()) {
+            return false;
+        }
 
         a = a.trim();
         if (!a.contains("b")) {
@@ -49,10 +55,14 @@ public class Ex1 {
         }
 
         String[] parts = a.split("b");
-        if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) return false;
+        if (parts.length != 2 || parts[0].isEmpty() || parts[1].isEmpty()) {
+            return false;
+        }
 
         int base = parseBase(parts[1].trim());
-        if (base < 2 || base > 16) return false;
+        if (base < 2 || base > 16) {
+            return false;
+        }
 
         return parts[0].chars().allMatch(c -> Character.digit(c, base) != -1);
     }
@@ -64,7 +74,9 @@ public class Ex1 {
      * @return a String representing a number in the given base, or an empty String if input is invalid
      */
     public static String int2Number(int num, int base) {
-        if (num < 0 || base < 2 || base > 16) return "";
+        if (num < 0 || base < 2 || base > 16) {
+            return "";
+        }
         return Integer.toString(num, base).toUpperCase();
     }
 
@@ -74,17 +86,17 @@ public class Ex1 {
      * @return the index of the largest number, or -1 if invalid
      */
     public static int maxIndex(String[] arr) {
-        if (arr == null || arr.length == 0) return -1;
-
         int maxValue = Integer.MIN_VALUE;
         int maxIndex = -1;
+
         for (int i = 0; i < arr.length; i++) {
-            int value = (arr[i] == null || !isNumber(arr[i])) ? -1 : number2Int(arr[i]);
+            int value = (arr[i] != null && isNumber(arr[i])) ? number2Int(arr[i]) : -1;
             if (value > maxValue) {
                 maxValue = value;
                 maxIndex = i;
             }
         }
+
         return maxIndex;
     }
 

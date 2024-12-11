@@ -13,44 +13,49 @@ public class Ex1Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(in);
 
-        while (true) {
+        boolean continueProgram = true;
+        while (continueProgram) {
             out.println("Ex1 class solution:");
 
-            // Input for the first number or quit command
+            // Input for the first number
             out.println("Enter a string as number#1 (or \"quit\" to end the program):");
             String input = scanner.nextLine();
             if (input.equalsIgnoreCase("quit")) {
                 out.println("Exiting program...");
-                break;
+                continueProgram = false;
+                continue;
             }
 
             // Validate the first number
-            if (!Ex1.isNumber(input)) {
-                out.println("num1= " + input + " is number: false , value: -1");
+            boolean isValidNum1 = Ex1.isNumber(input);
+            int num1Value = isValidNum1 ? Ex1.number2Int(input) : -1;
+            out.println("num1= " + input + " is number: " + isValidNum1 + " , value: " + num1Value);
+
+            if (!isValidNum1) {
                 out.println("ERR: num1 is in the wrong format! (" + input + ")");
                 continue;
             }
-            int num1Value = Ex1.number2Int(input);
-            out.println("num1= " + input + " is number: true , value: " + num1Value);
 
-            // Ask for the second number
+            // Input for the second number
             out.println("Enter a string as number#2 (or \"quit\" to end the program):");
             String num2Input = scanner.nextLine();
             if (num2Input.equalsIgnoreCase("quit")) {
                 out.println("Exiting program...");
-                break;
+                continueProgram = false;
+                continue;
             }
 
             // Validate the second number
-            if (!Ex1.isNumber(num2Input)) {
-                out.println("num2= " + num2Input + " is number: false , value: -1");
+            boolean isValidNum2 = Ex1.isNumber(num2Input);
+            int num2Value = isValidNum2 ? Ex1.number2Int(num2Input) : -1;
+            out.println("num2= " + num2Input + " is number: " + isValidNum2 + " , value: " + num2Value);
+
+            if (!isValidNum2) {
                 out.println("ERR: num2 is in the wrong format! (" + num2Input + ")");
                 continue;
             }
-            int num2Value = Ex1.number2Int(num2Input);
-            out.println("num2= " + num2Input + " is number: true , value: " + num2Value);
 
-            // Ask for the base
+            // Input for the base
             out.println("Enter a base for output: (a number [2,16]):");
             int base = getValidBase(scanner);
 
@@ -77,17 +82,17 @@ public class Ex1Main {
      * @return A valid base.
      */
     private static int getValidBase(Scanner scanner) {
-        while (true) {
-            String baseInput = scanner.nextLine();
+        int base = -1;
+        while (base < 2 || base > 16) {
             try {
-                int base = Integer.parseInt(baseInput);
-                if (base >= 2 && base <= 16) {
-                    return base;
+                base = Integer.parseInt(scanner.nextLine());
+                if (base < 2 || base > 16) {
+                    out.println("Invalid base! Please enter a number between 2 and 16:");
                 }
-                out.println("Invalid base! Please enter a number between 2 and 16:");
             } catch (NumberFormatException e) {
                 out.println("Invalid base! Please enter a valid number between 2 and 16:");
             }
         }
+        return base;
     }
 }

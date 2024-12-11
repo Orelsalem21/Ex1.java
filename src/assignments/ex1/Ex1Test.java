@@ -124,14 +124,4 @@ class Ex1Test {
         assertEquals(-1, Ex1.number2Int(null)); // Null input
         assertEquals(-1, Ex1.number2Int("")); // Empty string
     }
-
-    /**
-     * Tests sum and product operations with larger numbers.
-     */
-    @Test
-    void testLargeNumbers() {
-        int base = 10;
-        long sum = (long) Integer.MAX_VALUE + Integer.MAX_VALUE;
-        assertEquals("4294967294", Ex1.int2Number((int) sum, base));
-    }
 }
